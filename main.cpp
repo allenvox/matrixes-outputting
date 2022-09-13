@@ -52,6 +52,14 @@ int *getDownLeft(int *start)
     return arr;
 }
 
+int *getDownRight(int *start)
+{
+    int *arr = new int[2];
+    arr[0] = start[0] + 1;
+    arr[1] = start[1] + 1;
+    return arr;
+}
+
 int *matrixToArray(int N, int **matrix, int flag)
 {
     int *D = new int[N * N];
@@ -59,7 +67,7 @@ int *matrixToArray(int N, int **matrix, int flag)
     if (flag == RIGHT_D)
     {
         // get top triangle
-        for (int i = 1; i < N; i++)
+        for (int i = 1; i <= N; i++)
         {
             int *next = new int[2];
             next[0] = 0;
@@ -73,9 +81,6 @@ int *matrixToArray(int N, int **matrix, int flag)
             }
         }
 
-        D[count] = matrix[0][0];
-        count++;
-
         // get bottom triangle
         for (int i = 1; i < N; i++)
         {
@@ -88,6 +93,43 @@ int *matrixToArray(int N, int **matrix, int flag)
                 D[count] = matrix[next[0]][next[1]];
                 count++;
                 next = getDownLeft(next);
+            }
+        }
+
+        if (count != N * N)
+        {
+            cout << "Very bad" << endl;
+        }
+    }
+    else if (flag == LEFT_D)
+    {
+        // get top triangle
+        for (int i = 0; i < N; i++)
+        {
+            int *next = new int[2];
+            next[0] = 0;
+            next[1] = 0 + i;
+            for (int j = 0; j < N - i; j++)
+            {
+                cout << "next is " << next[0] << " " << next[1] << endl;
+                D[count] = matrix[next[0]][next[1]];
+                count++;
+                next = getDownRight(next);
+            }
+        }
+
+        // get bottom triangle
+        for (int i = 1; i < N; i++)
+        {
+            int *next = new int[2];
+            next[0] = N - i;
+            next[1] = 0;
+            for (int j = N; j > N - i; j--)
+            {
+                cout << "next is " << next[0] << " " << next[1] << endl;
+                D[count] = matrix[next[0]][next[1]];
+                count++;
+                next = getDownRight(next);
             }
         }
 
