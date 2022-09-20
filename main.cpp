@@ -1,7 +1,6 @@
 #include <iostream>
 #include "print.hpp"
 #include "matrix.hpp"
-
 using namespace std;
 
 int main()
@@ -11,10 +10,9 @@ int main()
     int maxValue = 99;
     int **matrix = getRandomMatrix(N, maxValue);
     printMatrix(N, matrix);
-
-    int flag = RIGHT_D;
+    int flag = SPIRAL_CENTER;
     int *D = matrixToArray(N, matrix, flag);
+    cout << " " << endl;
     printArray(N * N, D);
-
     return 0;
 }
